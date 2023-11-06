@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diabetes with NaiveBayes</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/DiabetesNaiveBayes.styles.css" asp-append-version="true" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+    <header>
+        <h2 class="h2 text-center">Dự đoán khả năng mắc bệnh tiểu đường dựa trên thuật toán NaiveBayes</h2>
+    </header>
+    <div class="container-fluid">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        $("#predictForm").on("submit", function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/Home/Predict',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function (result) {
+                    // Hiển thị kết quả dự đoán
+                    $('#predict_result').text(result.result);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

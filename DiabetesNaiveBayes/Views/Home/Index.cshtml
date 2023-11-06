@@ -1,0 +1,250 @@
+﻿@model DiabetesNaiveBayes.Models.DataPoint
+@{
+    ViewData["Title"] = "Home Page";
+	double pTrue = (double)ViewBag.pTrue;
+	double pFalse = (double)ViewBag.pFalse;
+	var PregStats = ViewBag.PregStats;
+    var GlucoseStats = ViewBag.GlucoseStats;
+    var BloodPressureStats = ViewBag.BloodPressureStats;
+    var SkinThicknessStats = ViewBag.SkinThicknessStats;
+    var InsulinStats = ViewBag.InsulinStats;
+    var BMIStats = ViewBag.BMIStats;
+    var DiabetesPedigreeFunctionStats = ViewBag.DiabetesPedigreeFunctionStats;
+	var AgeStats = ViewBag.AgeStats;
+    int correctCount = (int)ViewBag.correctCount;
+    int incorrectCount = (int)ViewBag.incorrectCount;
+	double accuracy = (double)ViewBag.accuracy;
+}
+
+<div class="row">
+    <div class="col-7">
+        <p class="h4">Huấn luyện mô hình</p>
+        <p>P(Yes) = @pTrue</p>
+        <p>P(No) = @pFalse</p>
+        <p>(Trong đó, Yes là mắc bệnh tiểu đường, No là không mắc bệnh)</p>
+        <p class="h4">Tính P(Xk/Ci)</p>
+        <div class="row justify-content-around">
+            <div class="col-5 mb-3 mb-3">
+                <p class="fw-bold m-0 p-0">Với thuộc tính Pregnancies(Số lần mang thai)</p>
+                <table class="table table-hover my-0">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%">Xk/Ci</th>
+                            <th style="width: 25%">Yes</th>
+                            <th style="width: 25%">No</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in PregStats)
+                        {
+                            <tr>
+                                <td>@item.Key</td>
+                                <td>@item.P_True</td>
+                                <td>@item.P_False</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-5 mb-3">
+                <p class="fw-bold m-0 p-0">Với thuộc tính Glucose(Đường huyết)</p>
+                <table class="table table-hover my-0">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%">Xk/Ci</th>
+                            <th style="width: 25%">Yes</th>
+                            <th style="width: 25%">No</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in GlucoseStats)
+                        {
+                            <tr>
+                                <td>@item.Key</td>
+                                <td>@item.P_True</td>
+                                <td>@item.P_False</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-5 mb-3">
+                <p class="fw-bold m-0 p-0">Với thuộc tính BloodPressure(Huyết áp)</p>
+                <table class="table table-hover my-0">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%">Xk/Ci</th>
+                            <th style="width: 25%">Yes</th>
+                            <th style="width: 25%">No</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in BloodPressureStats)
+                        {
+                            <tr>
+                                <td>@item.Key</td>
+                                <td>@item.P_True</td>
+                                <td>@item.P_False</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-5 mb-3">
+                <p class="fw-bold m-0 p-0">Với thuộc tính SkinThickness(Độ dày da)</p>
+                <table class="table table-hover my-0">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%">Xk/Ci</th>
+                            <th style="width: 25%">Yes</th>
+                            <th style="width: 25%">No</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in SkinThicknessStats)
+                        {
+                            <tr>
+                                <td>@item.Key</td>
+                                <td>@item.P_True</td>
+                                <td>@item.P_False</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-5 mb-3">
+                <p class="fw-bold m-0 p-0">Với thuộc tính Insulin()</p>
+                <table class="table table-hover my-0">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%">Xk/Ci</th>
+                            <th style="width: 25%">Yes</th>
+                            <th style="width: 25%">No</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in InsulinStats)
+                        {
+                            <tr>
+                                <td>@item.Key</td>
+                                <td>@item.P_True</td>
+                                <td>@item.P_False</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-5 mb-3">
+                <p class="fw-bold m-0 p-0">Với thuộc tính BMI</p>
+                <table class="table table-hover my-0">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%">Xk/Ci</th>
+                            <th style="width: 25%">Yes</th>
+                            <th style="width: 25%">No</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in BMIStats)
+                        {
+                            <tr>
+                                <td>@item.Key</td>
+                                <td>@item.P_True</td>
+                                <td>@item.P_False</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-5 mb-3">
+                <p class="fw-bold m-0 p-0">Với thuộc tính DiabetesPedigreeFunction</p>
+                <table class="table table-hover my-0">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%">Xk/Ci</th>
+                            <th style="width: 25%">Yes</th>
+                            <th style="width: 25%">No</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in DiabetesPedigreeFunctionStats)
+                        {
+                            <tr>
+                                <td>@item.Key</td>
+                                <td>@item.P_True</td>
+                                <td>@item.P_False</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-5 mb-3">
+                <p class="fw-bold m-0 p-0">Với thuộc tính Age(Tuổi)</p>
+                <table class="table table-hover my-0">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%">Xk/Ci</th>
+                            <th style="width: 25%">Yes</th>
+                            <th style="width: 25%">No</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in AgeStats)
+                        {
+                            <tr>
+                                <td>@item.Key</td>
+                                <td>@item.P_True</td>
+                                <td>@item.P_False</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <p class="h4">Đánh giá lại trên tập test</p>
+        <p class="fw-bold">Số mẫu có kết quả đúng: @correctCount</p>
+        <p class="fw-bold">Số mẫu có kết quả sai: @incorrectCount</p>
+        <p class="fw-bold">Accuracy: @accuracy</p>
+
+    </div>
+    
+    <div class="col-4">
+    <p class="h4">Nhập giá trị để dự đoán</p>
+        <form id="predictForm">
+            <div class="mb-3">
+                <label for="preg" class="form-label">Preg(1,2,3)</label>
+                <input asp-for="@Model.Pregnancies" type="number" required class="form-control" id="preg">
+            </div>
+			<div class="mb-3">
+				<label for="glu" class="form-label">Glu(1,2,3,4)</label>
+                <input required asp-for="@Model.Glucose" type="number" class="form-control" id="glu">
+            </div>
+            <div class="mb-3">
+                <label for="bp" class="form-label">BP(1,2,3)</label>
+				<input asp-for="@Model.BloodPressure" type="number" required class="form-control" id="bp">
+            </div>
+			<div class="mb-3">
+                <label for="skin" class="form-label">Skin(1,2,3)</label>
+                <input asp-for="@Model.SkinThickness" type="number" required class="form-control" id="skin">
+			</div>
+            <div class="mb-3">
+                <label for="insulin" class="form-label">Insulin(1,2,3,4)</label>
+			    <input asp-for="@Model.Insulin" type="number" required class="form-control" id="insulin">
+			</div>
+			<div class="mb-3">
+                <label for="bmi" class="form-label">BMI(1,2,3)</label>
+				<input asp-for="@Model.BMI" type="number" required class="form-control" id="bmi">
+			</div>
+            <div class="mb-3">
+                <label for="dpf" class="form-label">DPF(1,2,3,4)</label>
+				<input asp-for="@Model.DiabetesPedigreeFunction" type="number" required class="form-control" id="dpf">
+			</div>
+			<div class="mb-3">
+                <label for="age" class="form-label">Age(1,2,3)</label>
+                <input asp-for="@Model.Age" type="number" required class="form-control" id="age">
+			</div>
+            <button class="btn btn-success" type="submit" id="predict">Dự đoán</button>
+        </form>
+        <p class="fw-bold">Kết quả: <span id="predict_result"></span> </p>
+    </div>
+</div>
